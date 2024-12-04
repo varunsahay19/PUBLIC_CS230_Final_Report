@@ -64,7 +64,7 @@ def smearedNP(y,yhat):
     n=64
     ySmeared=np.mean(np.abs(np.reshape(y,(n,-1))),axis=1)
     yhatSmeared=np.mean(np.abs(np.reshape(yhat,(n,-1))),axis=1)
-    return np.mean(np.abs(ySmeared-yhatSmeared)/(ySmeared+1e-4))
+    tf.divide(tf.reduce_mean(tf.square(tf.subtract(ySmeared,yhatSmeared))),tf.reduce_mean(tf.square(y))+1e-8)
 
 #Direct MSE comparison of records, averaged in 16 bins, normalized, weighted to record start
 @register_keras_serializable()
